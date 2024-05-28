@@ -1,0 +1,54 @@
+#cloud-init
+
+## Package
+package_update: true
+package_upgrade: true
+packages:
+ - openssh-client
+ - openssh-server
+ - vim
+ - zsh
+ - git
+ - github-cli
+
+
+
+## SSH
+### ssh root disable
+disable_root: true
+
+### Public key 
+allow_public_ssh_keys: true
+
+### SSH passowrd auth
+ssh_pwauth: true
+
+## Timezone
+timezone: Asia/Tokyo
+
+## hostname
+hostname: atolycs-vm
+
+## User
+users:
+  - name: atolycs
+    groups: wheel
+    shell: /bin/zsh
+    lock_passwd: false
+    ssh_import_id:
+      - gh:atolycs
+
+## Keyborad
+keyboard:
+  layout: us
+
+## NTP
+ntp:
+  enabled: true
+  ntp_client: systemd-timesyncd
+
+
+## Restart Computer
+power_state:
+  delay: now
+  mode: reboot
